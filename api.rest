@@ -1,0 +1,20 @@
+@url = http://localhost:7070
+
+###
+
+GET {{url}}/tickets?method=allTickets
+
+###
+
+GET {{url}}/tickets?method=ticketById&id=1
+
+###
+
+POST {{url}}/auth
+Content-Type: application/json
+
+{ "login": "vasya", "password": "password" }
+
+###
+
+DELETE {{url}}/tickets/2
