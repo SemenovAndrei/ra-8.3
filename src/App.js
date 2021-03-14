@@ -1,5 +1,6 @@
 import './App.css'
 import AuthProvider from './components/AuthProvider/AuthProvider'
+import Content from './components/Content/Content'
 import Header from './components/Header/Header'
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
     <AuthProvider>
       <div className="App">
         <Header />
+        <Content />
       </div>
     </AuthProvider>
   )

@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
 import FormLogin from '../FormLogin/FormLogin'
 import styled from 'styled-components'
 import AuthContext from '../../contexts/AuthContext'
@@ -43,7 +42,5 @@ function Header(props) {
     </Element>
   )
 }
-
-Header.propTypes = {}
 
 export default Header

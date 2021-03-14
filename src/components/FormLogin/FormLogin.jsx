@@ -1,5 +1,4 @@
 import React, { useContext, useRef } from 'react'
-import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import AuthContext from '../../contexts/AuthContext'
 
@@ -60,7 +59,5 @@ function FormLogin(props) {
     </Element>
   )
 }
-
-FormLogin.propTypes = {}
 
 export default FormLogin

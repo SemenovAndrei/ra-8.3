@@ -6,6 +6,7 @@ export default function AuthProvider(props) {
   const [error, setError] = useState('')
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
+  const [news, setNews] = useState('')
   const [token, setToken] = useStorage(localStorage, 'token')
   const [profile, setProfile] = useStorage(localStorage, 'profile', true)
 
@@ -28,12 +29,10 @@ export default function AuthProvider(props) {
 
       if (!response.ok) {
         const error = await response.json()
-
         throw new Error('Auth failed: ' + error.message)
       }
 
       const { token } = await response.json()
-
       setToken(token)
     } catch (e) {
       setError(e)
@@ -44,6 +43,7 @@ export default function AuthProvider(props) {
   }
 
   const handleLogout = () => {
+    setNews('')
     setToken(null)
     setProfile(null)
   }
@@ -51,24 +51,27 @@ export default function AuthProvider(props) {
   useEffect(() => {
     if (token) {
       setError('')
-      const loadProfile = async () => {
+      const loadProfile = async (url, setState) => {
         try {
-          const response = await fetch('http://localhost:7070/private/me', {
+          const response = await fetch(url, {
             headers: { Authorization: 'Bearer ' + token },
           })
 
           if (!response.ok) {
+            setNews('')
             setToken(null)
             setProfile(null)
           }
 
-          const profile = await response.json()
-          setProfile(profile)
+          const state = await response.json()
+          setState(state)
         } catch (e) {
           setError(e)
         }
       }
-      loadProfile()
+
+      loadProfile('http://localhost:7070/private/me', setProfile)
+      loadProfile('http://localhost:7070/private/news', setNews)
     }
   }, [token, setProfile, setToken])
 
@@ -84,6 +87,7 @@ export default function AuthProvider(props) {
         token,
         profile,
         error,
+        news,
       }}
     >
       {props.children}
