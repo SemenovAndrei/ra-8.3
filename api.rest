@@ -6,7 +6,10 @@ GET {{url}}/tickets?method=allTickets
 
 ###
 
-GET {{url}}/tickets?method=ticketById&id=1
+GET {{url}}/private/me
+Content-Type: application/json
+Authorization: Bearer 0856c858-2692-43ff-ba8c-12206a868156
+
 
 ###
 

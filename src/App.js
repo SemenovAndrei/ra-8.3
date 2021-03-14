@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import AuthProvider from './components/AuthProvider/AuthProvider'
 import Header from './components/Header/Header'

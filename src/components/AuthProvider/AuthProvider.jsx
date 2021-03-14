@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AuthContext from '../../contexts/AuthContext'
 import useStorage from '../../hooks/useStorage'
 
@@ -32,11 +32,9 @@ export default function AuthProvider(props) {
         throw new Error('Auth failed: ' + error.message)
       }
 
-      const { token, profile } = await response.json()
-      console.log(token, profile)
+      const { token } = await response.json()
 
       setToken(token)
-      setProfile(profile)
     } catch (e) {
       setError(e)
     } finally {
@@ -49,6 +47,31 @@ export default function AuthProvider(props) {
     setToken(null)
     setProfile(null)
   }
+
+  useEffect(() => {
+    if (token) {
+      setError('')
+      const loadProfile = async () => {
+        try {
+          const response = await fetch('http://localhost:7070/private/me', {
+            headers: { Authorization: 'Bearer ' + token },
+          })
+
+          if (!response.ok) {
+            setToken(null)
+            setProfile(null)
+          }
+
+          const profile = await response.json()
+          setProfile(profile)
+        } catch (e) {
+          setError(e)
+        }
+      }
+      loadProfile()
+    }
+  }, [token, setProfile, setToken])
+
   return (
     <AuthContext.Provider
       value={{

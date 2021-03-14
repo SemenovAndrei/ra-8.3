@@ -29,8 +29,6 @@ const Logo = styled.div`
 function Header(props) {
   const { error, profile } = useContext(AuthContext)
 
-  console.log(profile)
-
   return (
     <Element>
       <Logo>Neto Social</Logo>

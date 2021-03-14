@@ -7,11 +7,6 @@ const Element = styled.form`
   display: flex;
   justify-content: space-between;
 `
-const Error = styled.div`
-  position: absolute;
-  color: red;
-  margin: 5px 0 0 -250px;
-`
 const Input = styled.input`
   width: 40%;
   padding: 10px;
@@ -27,7 +22,6 @@ const Button = styled.button`
 
 function FormLogin(props) {
   const {
-    error,
     login,
     password,
     handleLogin,
