@@ -7,6 +7,7 @@ export default function AuthProvider(props) {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
   const [news, setNews] = useState('')
+
   const [token, setToken] = useStorage(localStorage, 'token')
   const [profile, setProfile] = useStorage(localStorage, 'profile', true)
 
@@ -21,7 +22,7 @@ export default function AuthProvider(props) {
   const handleLogin = async () => {
     setError('')
     try {
-      const response = await fetch('http://localhost:7070/auth', {
+      const response = await fetch(process.env.REACT_APP_URL_AUTH, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ login: login, password: password }),
@@ -70,8 +71,8 @@ export default function AuthProvider(props) {
         }
       }
 
-      loadProfile('http://localhost:7070/private/me', setProfile)
-      loadProfile('http://localhost:7070/private/news', setNews)
+      loadProfile(`${process.env.REACT_APP_URL_USER}/me`, setProfile)
+      loadProfile(`${process.env.REACT_APP_URL_USER}/news`, setNews)
     }
   }, [token, setProfile, setToken])
 
